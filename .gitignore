@@ -1,0 +1,12 @@
+*.xml
+*.toc
+*.aux
+*.bcf
+*.log
+*.out
+*.idx
+*.ilg
+*.ind
+/plasma_physics/text/*.pdf
+*:Zone.Identifier
+/physics_of_magnetism/text/*.pdf
