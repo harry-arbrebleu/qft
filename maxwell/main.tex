@@ -1,0 +1,163 @@
+\documentclass{report}
+\input{../head.tex}
+\begin{document}
+  \section{ゲージ場の導入}
+    自然単位系でMaxwellの方程式を書くと，
+    \begin{align}
+      \div\bm{B} = 0 \label{maxwell-1} \\ 
+      \curl\bm{E} + \pdv{\bm{B}}{t} = 0 \label{maxwell-2} \\ 
+      \div\bm{E} = \rho \label{maxwell-3} \\ 
+      \curl\bm{B} - \pdv{\bm{E}}{t} = \bm{j}\label{maxwell-4} 
+    \end{align}
+    となる．
+    $\rho$は電荷密度，$\bm{j}$は電流密度である．
+    \refe{maxwell-1}なる$\bm{B}$は，
+    \begin{align}
+      \bm{B} = \curl{\bm{A}}\label{b-gauge}
+    \end{align}
+    である．
+    \refe{b-gauge}を\refe{maxwell-2}に代入すると，
+    \begin{align}
+      \curl\qty(\bm{E} + \pdv{\bm{A}}{t}) = 0\label{e-gauge-1}
+    \end{align}
+    となる．
+    \refe{e-gauge-1}ようなベクトルは，
+    \begin{align}
+      &\bm{E} + \pdv{\bm{A}}{t} = -\grad A^0 \\ 
+      \iff& \bm{E} = -\grad A^0 -\pdv{\bm{A}}{t} \label{e-gauge}
+    \end{align}
+    となる．
+    \refe{b-gauge}と\refe{e-gauge}をまとめて書くと，
+    \begin{align}
+      \mqty(B^1 \\ B^2 \\ B^3) &= \mqty(\partial_2A^3 - \partial_3A^2 \\ \partial_3A^1 - \partial_1A^3 \\ \partial_1A^2 - \partial_2A^1) \\ 
+      \mqty(E^1 \\ E^2 \\ E^3) &= -\mqty(\partial_0A^1 + \partial_1A^0  \\ \partial_0A^2 + \partial_2A^0  \\ \partial_0A^3 + \partial_3A^0 )
+    \end{align}
+    となる．
+  \section{場の強さ}
+    場の強さ$F^{\mu\nu}$なるテンソルを，
+    \begin{align}
+      F^{\mu\nu} \coloneqq \partial^{\mu}A^{\nu} - \partial^{\nu}A^{\mu}
+    \end{align}
+    と定義する．
+    \par
+    場の強さに関する性質をいくつか示す．
+    まず，場の強さ$F^{\mu\nu}$は反対称テンソルであることを示す．
+    \begin{proof}
+      \begin{align}
+        F^{\nu\mu} &= \partial^{\nu}A^{\mu} - \partial^{\mu}A^{\nu} \\ 
+        &= -\partial^{\mu}A^{\nu} + \partial^{\nu}A^{\mu} \\ 
+        &= -F^{\mu\nu}
+      \end{align}
+      であるから，$F^{\mu\nu}$は反対称テンソルである．
+    \end{proof}
+    電場と磁場は場の強さを用いて簡単に書くことが出来る．
+    まず，磁場について$(\rho, \mu, \nu) \in \qty{(1, 2, 3), (2, 3, 1), (3, 1, 2)}$として，
+    \begin{align}
+      B^{\rho} &= \partial_{\mu}A^{\nu} - \partial_{\nu}A^{\mu} \\ 
+      &= -\qty(\partial^{\mu}A^{\nu} - \partial^{\nu}A^{\mu}) \\ 
+      &= -F^{\mu\nu} \label{b-field-strength}
+    \end{align}
+    と書ける．
+    次に，電場について$\nu \in \qty{1, 2, 3}$として，
+    \begin{align}
+      E^{\nu} &= -\qty(\partial_0A^{\nu} + \partial_{\nu}A^0) \\ 
+      &= -\qty(\partial^0A^{\nu} - \partial^{\nu}A^0) \\ 
+      &= -F^{0\nu} \label{e-field-strength}
+    \end{align}
+    と書くことができる．
+    \par
+    $M^{\rho\mu\nu}$を，
+    \begin{align}
+      M^{\rho\mu\nu} \coloneqq \partial^{\rho}F^{\mu\nu} + \partial^{\mu}F^{\nu\rho} + \partial^{\nu}F^{\rho\mu}
+    \end{align}
+    と定義する．
+    $M^{\rho\mu\nu}$が完全反対称テンソルであることを示す．
+    \begin{proof}
+      計算において，$F^{\mu\nu}$が反対称テンソルであることを用いる．
+      3種類の添え字の入れ替えを考える．
+      \begin{enumerate}
+        \item~\\ 
+          まず，$M^{\rho\mu\nu}$から1番目の添え字$\rho$と2番目の添え字$\mu$を入れ替えた量$M^{\mu\rho\nu}$を考えると，
+          \begin{align}
+            M^{\mu\rho\nu} &= \partial^{\mu}F^{\rho\nu} + \partial^{\rho}F^{\nu\mu} + \partial^{\nu}F^{\mu\rho} \\ 
+            &= -\partial^{\mu}F^{\nu\rho} - \partial^{\rho}F^{\mu\nu} - \partial^{\nu}F^{\rho\mu} \\ 
+            &= -\partial^{\rho}F^{\mu\nu} - \partial^{\mu}F^{\nu\rho} - \partial^{\nu}F^{\rho\mu} = -M^{\rho\mu\nu}
+          \end{align}
+          となる．
+        \item~\\
+          次に，$M^{\rho\mu\nu}$から2番目の添え字$\mu$と3番目の添え字$\nu$を入れ替えた量$M^{\rho\nu\mu}$を考えると，
+          \begin{align}
+            M^{\rho\nu\mu} &= \partial^{\rho}F^{\nu\mu} + \partial^{\nu}F^{\mu\rho} + \partial^{\mu}F^{\rho\nu} \\ 
+            &= -\partial^{\rho}F^{\mu\nu} - \partial^{\nu}F^{\rho\mu} - \partial^{\mu}F^{\nu\rho} \\ 
+            &= -\partial^{\rho}F^{\mu\nu} - \partial^{\mu}F^{\nu\rho} - \partial^{\nu}F^{\rho\mu} = -M^{\rho\mu\nu}
+          \end{align}
+          となる．
+        \item~\\
+          最後に，$M^{\rho\mu\nu}$から2番目の添え字$\mu$と3番目の添え字$\nu$を入れ替えた量$M^{\nu\mu\rho}$を考えると，
+          \begin{align}
+            M^{\nu\mu\rho} &= \partial^{\mu}F^{\nu\rho} + \partial^{\mu}F^{\rho\nu} + \partial^{\rho}F^{\nu\mu} \\ 
+            &= -\partial^{\mu}F^{\rho\nu} - \partial^{\mu}F^{\nu\rho} + \partial^{\rho}F^{\mu\nu} \\ 
+            &= -\partial^{\rho}F^{\mu\nu} - \partial^{\mu}F^{\nu\rho} - \partial^{\nu}F^{\rho\mu} = -M^{\rho\mu\nu}
+          \end{align}
+          となりる．
+      \end{enumerate}
+      以上より，$M^{\rho\mu\nu}$はどの2つの添え字を入れ替えても反対称であるから，完全反対称テンソルである．
+    \end{proof}
+    次に，場の強さを用いると\refe{maxwell-1}と\refe{maxwell-2}は，
+    \begin{align}
+      M^{\rho\mu\nu} = 0\label{maxwell-12-1}
+    \end{align}
+    と書けることを示す．
+    \begin{proof}
+      $M^{\rho\mu\nu}$は完全反対称テンソルであるので，いずれか2つの添え字が同じであれば$M^{\rho\mu\nu} = 0$であるので，
+      \refe{maxwell-12-1}は自明に成立する．
+      また，添え字の入れ替えで負号がつくので，$\rho < \mu < \nu$を課しても対称性を失わない．
+      よって，
+      \begin{align}
+        \qty(\rho, \mu, \nu) \in \qty{(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)}
+      \end{align}
+      のみを考えればよい．
+      場の強さを\refe{b-field-strength}と\refe{e-field-strength}を用いて電磁場で書き直すと，
+      \begin{enumerate}
+        \item $\qty(\rho, \mu, \nu) = (0, 1, 2)$のとき．
+          \begin{align}
+            M^{012} &= \partial^0F^{12} + \partial^1F^{20} + \partial^2F^{01} \\ 
+            &= -\partial^0B^3 + \partial^1E^2 - \partial^2E^1 \\ 
+            &= -\partial_0B^3 -\qty(\partial_1E^2 - \partial_2E^1) \\ 
+            &= -\qty[\pdv{B^3}{t} + \pdv{E^2}{x^1} - \pdv{E^1}{x^2}] \\ 
+            &= 0
+          \end{align}
+          となる．
+          なお，Maxwellの方程式の第2式である\refe{maxwell-2}の$z$成分が0となることを用いた．
+        \item $\qty(\rho, \mu, \nu) = (0, 1, 3)$のとき．
+          \begin{align}
+            M^{013} &= \partial^0F^{13} + \partial^1F^{30} + \partial^3F^{01} \\ 
+            &= \partial^0B^2 + \partial^1E^2 - \partial^3E^1 \\ 
+            &= \partial_0B^2 + \qty(\partial_3E^1 - \partial_1E^3) \\ 
+            &= \pdv{B^2}{t} + \pdv{E^1}{x^3} - \pdv{E^3}{x^1} \\ 
+            &= 0
+          \end{align}
+          となる．
+          なお，Maxwellの方程式の第2式である\refe{maxwell-2}の$y$成分が0となることを用いた．
+        \item $\qty(\rho, \mu, \nu) = (0, 2, 3)$のとき．
+          \begin{align}
+            M^{023} &= \partial^0F^{23} + \partial^1F^{20} + \partial^2F^{01} \\ 
+            &= -\partial^0B^1 + \partial^2E^3 - \partial^3E^2 \\ 
+            &= -\partial_0B^1 - \qty(\partial_3E^2 - \partial_2E^3) \\ 
+            &= -\qty[\pdv{B^1}{t} + \qty(\pdv{E^2}{x^3} - \pdv{E^3}{x^2})] \\ 
+            &= 0
+          \end{align}
+          となる．
+          なお，Maxwellの方程式の第2式である\refe{maxwell-2}の$x$成分が0となることを用いた．
+        \item $\qty(\rho, \mu, \nu) = (1, 2, 3)$のとき．
+          \begin{align}
+            M^{123} &= \partial^1F^{23} + \partial^2F^{31} + \partial^3F^{12} \\ 
+            &= -\partial^1B^1 - \partial^2E^2 - \partial^3E^3 \\ 
+            &= 0
+          \end{align}
+          となる．
+          なお，Maxwellの方程式の第1式である\refe{maxwell-1}が0となることを用いた．
+      \end{enumerate}
+      よって，\refe{maxwell-12-1}が成立する．
+    \end{proof}
+\end{document}
