@@ -33,7 +33,7 @@
       \mqty(E^1 \\ E^2 \\ E^3) &= -\mqty(\partial_0A^1 + \partial_1A^0  \\ \partial_0A^2 + \partial_2A^0  \\ \partial_0A^3 + \partial_3A^0 )
     \end{align}
     となる．
-  \section{場の強さ}
+  \section{Maxwell方程式の第1式と第2式}
     場の強さ$F^{\mu\nu}$なるテンソルを，
     \begin{align}
       F^{\mu\nu} \coloneqq \partial^{\mu}A^{\nu} - \partial^{\nu}A^{\mu}
@@ -160,4 +160,84 @@
       \end{enumerate}
       よって，\refe{maxwell-12-1}が成立する．
     \end{proof}
+    以上の議論をまとめると，
+    \begin{align}
+      &\partial^{\rho}F^{\mu\nu} + \partial^{\mu}F^{\nu\rho} + \partial^{\nu}F^{\rho\mu} = 0 \\ 
+      \iff& \begin{dcases}
+        \div\bm{B} = 0 \\ 
+        \curl\bm{E} + \pdv{\bm{B}}{t} = 0
+      \end{dcases} \\ 
+      \iff& \begin{dcases} 
+        \bm{E} = -\grad A^0 -\pdv{\bm{A}}{t} \\ 
+        \bm{B} = \curl{\bm{A}}
+      \end{dcases} \\ 
+      \iff& F^{\mu\nu} = \partial^{\mu}A^{\nu} - \partial^{\nu}A^{\mu}
+    \end{align}
+    となる同値変形を行っていたに過ぎない．
+  \section{Maxwell方程式の第3式と第4式}
+    Maxwell方程式の第3式と第4式，
+    \begin{align}
+      \begin{dcases}
+        \div\bm{E} = \rho \\ 
+        \curl\bm{B} - \pdv{\bm{E}}{t} = \bm{j} 
+      \end{dcases}
+    \end{align}
+    を場の強さを用いて書きなおす．
+    \refe{e-field-strength}と\refe{b-field-strength}を用いて，$j^{\mu} \coloneqq (\rho, \bm{j})^{\top}$とすれば，
+    \begin{align}
+      &\begin{dcases}
+        \div\bm{E} = \rho \\ 
+        \curl\bm{B} - \pdv{\bm{E}}{t} = \bm{j} 
+      \end{dcases} \\ 
+      \iff& \begin{dcases}
+        \div\mqty(-F^{01} \\ -F^{02} \\ -F^{03}) = \rho \\ 
+        \curl\mqty(-F^{23} \\ -F^{31} \\ -F^{12}) - \pdv{t}\mqty(-F^{01} \\ -F^{02} \\ -F^{03}) = \bm{j}
+      \end{dcases} \\ 
+      \iff& \mqty(
+        -\pdv*{F^{01}}{x^1} - \pdv*{F^{02}}{x^2} - \pdv*{F^{03}}{x^3} \\ 
+        -\pdv*{F^{12}}{x^2} + \pdv*{F^{31}}{x^3} + \pdv*{F^{01}}{x^0} \\ 
+        -\pdv*{F^{23}}{x^3} + \pdv*{F^{12}}{x^2} + \pdv*{F^{02}}{x^0} \\ 
+        -\pdv*{F^{31}}{x^1} + \pdv*{F^{23}}{x^1} + \pdv*{F^{03}}{x^0} \\ 
+      ) = \mqty(j^0 \\ j^1 \\ j^2 \\ j^3) \\ 
+      \iff& \mqty(
+        \pdv*{F^{00}}{x^0} + \pdv*{F^{10}}{x^1} + \pdv*{F^{20}}{x^2} + \pdv*{F^{30}}{x^3} \\ 
+        \pdv*{F^{01}}{x^0} + \pdv*{F^{11}}{x^1} + \pdv*{F^{21}}{x^2} + \pdv*{F^{31}}{x^3} \\ 
+        \pdv*{F^{02}}{x^0} + \pdv*{F^{12}}{x^1} + \pdv*{F^{22}}{x^2} + \pdv*{F^{32}}{x^3} \\ 
+        \pdv*{F^{03}}{x^0} + \pdv*{F^{13}}{x^1} + \pdv*{F^{23}}{x^2} + \pdv*{F^{33}}{x^3} \\ 
+      ) = \mqty(j^0 \\ j^1 \\ j^2 \\ j^3) \\ 
+      \iff& \partial_{\mu}F^{\mu\nu} = j^{\nu} \label{maxwell-3-4-changed}
+    \end{align}
+    と書ける．
+    計算の途中，場の強さを表すテンソルが反対称テンソルであることを用いた．
+    \refe{maxwell-3-4-changed}の形から，直ちに電荷保存則が成立する．
+    電荷保存則は，
+    \begin{align}
+      &\pdv{\rho}{t} - \div\bm{j} = 0 \\ 
+      \iff& \partial_{\nu}j^{\nu} = 0
+    \end{align}
+    である．
+    実際に\refe{maxwell-3-4-changed}の両辺に$\partial_{\nu}$を書けると，
+    \begin{align}
+      \partial_{\nu}\partial_{\mu}F^{\mu\nu} &= -\partial_{\nu}\partial_{\mu}F^{\nu\mu} \\ 
+      &= \partial_{\mu}\partial_{\nu}F^{\mu\nu} \\ 
+      &= \partial_{\nu}\partial_{\mu}F^{\nu\mu}
+    \end{align}
+    より，
+    \begin{align}
+      \partial_{\nu}\partial_{\mu}F^{\nu\mu} = 0
+    \end{align}
+    であるから，
+    \begin{align}
+      \partial_{\nu}j^{\nu} = 0
+    \end{align}
+    なる電荷保存則が成立する．
+    \par
+    本節と前節の議論をまとめると，Maxwell方程式は，
+    \begin{align}
+      \begin{dcases}
+        F^{\mu\nu} = \partial^{\mu}A^{\nu} - \partial^{\nu}A^{\mu} \\ \label{maxwell-tensor}
+        \partial_{\nu}j^{\nu} = 0 \\ 
+      \end{dcases}
+    \end{align}
+    と書き替えられた．
 \end{document}
